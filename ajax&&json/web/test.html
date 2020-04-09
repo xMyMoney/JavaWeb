@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            var checkname = document.getElementById("username");
+            checkname.onblur = function () {
+                if(checkname.value == ""){
+                    alert("空的啊")
+                }else {
+                    //查询是否已存在该用户名
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("get","/findNameServlet?username="+checkname.value,true);
+                    xhr.send();
+                    xhr.onreadystatechange = function () {
+                        if(xhr.readyState == 4){
+                            var flag = xhr.responseText;
+                            if(flag == 1){
+                                document.getElementById("msg").innerHTML = "用户已存在！";
+                            }else {
+                                document.getElementById("msg").innerHTML = "可用！";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<input type="text" placeholder="请输入用户名" id="username"><span id="msg"></span>
+<br>
+<input type="text" placeholder="请输入密码" id="password">
+<br>
+<button>注册</button>
+</body>
+</html>
