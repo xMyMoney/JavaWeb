@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!-- 网页使用的语言 -->
+<html lang="zh-CN">
+<head>
+    <!-- 指定字符集 -->
+    <meta charset="utf-8">
+    <!-- 使用Edge最新的浏览器的渲染方式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- viewport视口：网页可以根据设置的宽度自动进行适配，在浏览器的内部虚拟一个容器，容器的宽度与设备的宽度相同。
+    width: 默认宽度与设备的宽度相同
+    initial-scale: 初始的缩放比，为1:1 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>用户信息管理系统</title>
+
+    <!-- 1. 导入CSS的全局样式 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <!-- 3. 导入bootstrap的js文件 -->
+    <script src="js/bootstrap.min.js"></script>
+    <style type="text/css">
+        td, th {
+            text-align: center;
+        }
+    </style>
+    <script>
+        $(function () {
+           page(1);
+        })
+        function page(currentPage) {
+            $.get("pageServlet",{currentPage:currentPage},function (pb) {
+                //alert(pb.list)
+                //数据展示
+                var trs = "<tr class=\"success\"> <th>编号</th> <th>姓名</th> </tr>";
+                for (var i = 0; i < pb.list.length; i++) {
+                    var td = '<tr><td>'+pb.list[i].id+'</td><td>'+pb.list[i].name+'</td></tr>';
+                    trs += td;
+                }
+                $("#tab").html(trs);
+
+                //分页条
+                $("#count").html("共"+pb.totalCount+"条记录，共"+pb.totalPage+"页");
+
+                var lis;
+                if(pb.currentPage ==1){
+                    lis = '<li class="disabled">\n' +
+                        '                    <a href="#" aria-label="Previous">\n' +
+                        '                        <span aria-hidden="true">&laquo;</span>\n' +
+                        '                    </a>\n' +
+                        '                </li>';
+                }else {
+                    lis = '<li>\n' +
+                        '                    <a href="javascript:page('+pb.currentPage+'-1)">\n' +
+                        '                        <span aria-hidden="true">&laquo;</span>\n' +
+                        '                    </a>\n' +
+                        '                </li>';
+                }
+
+
+                for (var i = 1; i <= pb.totalPage ; i++) {
+                    var li;
+                    if(pb.currentPage == i){
+                        li = ' <li class="active"><a href="javascript:page('+i+')">'+i+'</a></li>';
+                    }else {
+                        li = ' <li><a href="javascript:page('+i+')">'+i+'</a></li>';
+                    }
+                    lis += li;
+                }
+
+                if(pb.currentPage == pb.totalPage){
+                    lis += '<li class="disabled" >\n' +
+                        '                    <a href="#"aria-label="Previous">\n' +
+                        '                        <span aria-hidden="true">&raquo;</span>\n' +
+                        '                    </a>\n' +
+                        '                </li>' ;
+                }else {
+                    lis += '<li>\n' +
+                        '                    <a href="javascript:page('+pb.currentPage+'+1)" aria-label="Next">\n' +
+                        '                        <span aria-hidden="true">&raquo;</span>\n' +
+                        '                    </a>\n' +
+                        '                </li>' ;
+                }
+
+
+                lis += '<span style="font-size: 25px;margin-left: 5px" id="count">共'+pb.totalCount+'条记录，共'+pb.totalPage+'页</span>';
+                $("#lis").html(lis);
+            })
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h3 style="text-align: center">分页练习</h3>
+    <div>
+        <table border="1" class="table table-bordered table-hover" id="tab">
+
+        </table>
+    </div>
+    <div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination" id="lis">
+
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>
+</html>
