@@ -24,11 +24,11 @@ CREATE TABLE `test` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 /*Data for the table `test` */
 
-insert  into `test`(`id`,`name`) values (1,'张三'),(2,'张三'),(3,'李四'),(4,'王马五'),(5,'小雨'),(6,'小明'),(7,'小米'),(8,'中中'),(9,'小黄'),(10,'大黄'),(11,'八哥'),(12,'七哥'),(13,'六歌');
+insert  into `test`(`id`,`name`) values (1,'张三'),(2,'张三'),(3,'李四'),(4,'王马五'),(5,'小雨'),(6,'小明'),(7,'小米'),(8,'中中'),(9,'小黄'),(10,'大黄'),(11,'八哥'),(12,'七哥'),(13,'六歌'),(14,'小八'),(15,'小七'),(16,'小六'),(17,'小八'),(18,'小七'),(19,'小六'),(20,'小八'),(21,'小七'),(22,'小六'),(23,'小八'),(24,'小七'),(25,'小六');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
